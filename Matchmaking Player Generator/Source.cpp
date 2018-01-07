@@ -2,6 +2,7 @@
 #include <iostream>
 #include <memory>
 
+#include "GetRandom.h"
 #include "Player.h"
 
 

@@ -2,10 +2,9 @@
 #define player
 
 //forward declare dependancies
-
+int GetRandom(int min, int max);
 
 //include dependancies
-#include <random>
 #include <string>
 #include <utility>
 

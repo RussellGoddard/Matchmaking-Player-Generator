@@ -64,21 +64,6 @@ int MMR_DISTRO[NUMBER_OF_BRACKETS] = {BRONZE5_DISTRO, BRONZE4_DISTRO, BRONZE3_DI
 	DIAMOND5_DISTRO, DIAMOND4_DISTRO, DIAMOND3_DISTRO, DIAMOND2_DISTRO, DIAMOND1_DISTRO,
 	MASTERS_DISTRO, CHALLENGER_DISTRO};
 
-
-//function to return a random integer based on a given min and max range
-//seed random generator
-std::random_device rand_dev;
-std::mt19937 generator(rand_dev());
-
-int GetRandom(int min, int max)
-{
-	int random = 0; //initialize an int for us to return
-	std::uniform_int_distribution<int> distr(min, max);
-	random = distr(generator);
-
-	return random;
-}
-
 //randomly generate player mmr and return
 int InitialMmr() {
 	//find the starting mmr that this specific player will have based on distribution stated in excel spreadsheet
