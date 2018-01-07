@@ -1,11 +1,10 @@
-#ifndef player
-#define player
+#pragma once
+
 
 //forward declare dependancies
-
+int GetRandom(int min, int max); //from GetRandom.h
 
 //include dependancies
-#include <random>
 #include <string>
 #include <utility>
 
@@ -66,5 +65,3 @@ private:
 	std::string name; //currently just Player(#id)
 	int mmr;
 };
-
-#endif // !player
