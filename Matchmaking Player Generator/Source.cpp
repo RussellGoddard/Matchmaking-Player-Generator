@@ -2,11 +2,15 @@
 #include <iostream>
 #include <memory>
 
+#include "Counter.h"
+#include "DataForUI.h"
 #include "GetRandom.h"
 #include "Player.h"
 
+std::vector<std::pair<std::string, int>> numberOfPlayersDivision;
 
-int main() {
+
+int run() {
 	//simply a test program for generating players
 	//shared_ptr is used because eventually this pointer will be in 3 different places (I believe), the list of players, the players queued sorted by when they queued, and the players in queue sorted by mmr
 
@@ -22,7 +26,6 @@ int main() {
 	std::pair<std::string, int> masters = std::make_pair("Masters", 0);
 	std::pair<std::string, int> challenger = std::make_pair("Challenger", 0);
 
-	std::vector<std::pair<std::string, int>> numberOfPlayersDivision;
 	numberOfPlayersDivision.push_back(bronze);
 	numberOfPlayersDivision.push_back(silver);
 	numberOfPlayersDivision.push_back(gold);
@@ -73,6 +76,34 @@ int main() {
 
 	std::cout << std::endl << "Sum of Players: " << std::to_string(sum) << std::endl;
 
-	system("pause");
+
+	/*std::cout << std::endl;
+
+	std::thread threadCounter(counter);
+
+	threadCounter.join();*/
+
+	//system("pause");
 	return 0;
+}
+
+extern "C" __declspec(dllexport) int* PlayerDistro() {
+
+	int* test = new int[8];
+	int sum = 0;
+
+	run();
+
+	for (int i = 0; i < 7; ++i) {
+		test[i] = numberOfPlayersDivision.at(i).second;
+		sum += numberOfPlayersDivision.at(i).second;
+	}
+
+	test[7] = sum;
+
+	return test;
+}
+
+extern "C" __declspec(dllexport) void DeleteArray(int* pArray) {
+	delete[] pArray;
 }
