@@ -16,6 +16,7 @@ namespace Matchmaking_UI
 
         [DllImport("Matchmaking Player Generator.dll")]
         public static extern void DeleteArray(IntPtr ptr);
+
     }
 
 

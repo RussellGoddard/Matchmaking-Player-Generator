@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="text_1" HorizontalAlignment="Left" Height="23" Margin="19,26,0,0" TextWrapping="Wrap" Text="Input" VerticalAlignment="Top" Width="120" FontFamily="Lucida Sans Typewriter"/>
-        <TextBox x:Name="text_2" HorizontalAlignment="Left" Height="175" Margin="152,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="345" FontFamily="Lucida Sans Typewriter"/>
+        <TextBox x:Name="text_1" HorizontalAlignment="Left" Height="23" Margin="19,26,0,0" TextWrapping="Wrap" Text="Input" VerticalAlignment="Top" Width="188" FontFamily="Lucida Sans Typewriter"/>
+        <TextBox x:Name="text_2" HorizontalAlignment="Left" Height="175" Margin="212,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Sans Typewriter"/>
 
     </Grid>
 </Window>

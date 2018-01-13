@@ -87,6 +87,18 @@ int run() {
 	return 0;
 }
 
+typedef void (*foo)(void);
+
+foo test;
+
+extern "C" __declspec(dllexport) void CallbackTest(foo pickle) {
+	test = pickle;
+
+	test();
+
+	return;
+}
+
 extern "C" __declspec(dllexport) int* PlayerDistro() {
 
 	int* test = new int[8];
