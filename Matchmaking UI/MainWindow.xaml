@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matchmaking_UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" Loaded="OnLoad">
     <Grid>
         <TextBox x:Name="text_1" HorizontalAlignment="Left" Height="23" Margin="19,26,0,0" TextWrapping="Wrap" Text="Input" VerticalAlignment="Top" Width="188" FontFamily="Lucida Sans Typewriter"/>
         <TextBox x:Name="text_2" HorizontalAlignment="Left" Height="175" Margin="212,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Sans Typewriter"/>
+        <TextBox x:Name="text_3" HorizontalAlignment="Left" Height="23" Margin="19,95,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="text_3_Copy" HorizontalAlignment="Left" Height="23" Margin="19,143,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="19,179,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 
-
 namespace Matchmaking_UI
 {
     
@@ -26,6 +25,12 @@ namespace Matchmaking_UI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        Counter newCounter = new Counter();
+
+        private void OnLoad(object sender, RoutedEventArgs e)
+        {
 
             Testing.TestCall();
             text_1.Text = Testing.pickles;
@@ -39,13 +44,27 @@ namespace Matchmaking_UI
                 perc = (double)test[i] / (double)test[7] * 100;
                 text_2.Text += String.Format("{0,-10} {1,-15} {2, -10:00.00}\n", testString[i], test[i], perc);
             }
+
+
+            
+            Binding counterBinding = new Binding("Count");
+            counterBinding.Source = newCounter;
+            counterBinding.Mode = BindingMode.OneWay;
+            counterBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            text_3.SetBinding(TextBox.TextProperty, counterBinding);
+
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            text_3_Copy.Text = newCounter.Count.ToString();
         }
     }
 
     public class Testing
     {
         public static string pickles;
-
 
         [DllImport("Matchmaking Player Generator.dll")]
         public static extern void CallbackTest(IntPtr ptr);
