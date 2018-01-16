@@ -32,18 +32,18 @@ namespace Matchmaking_UI
         private void OnLoad(object sender, RoutedEventArgs e)
         {
 
-            Testing.TestCall();
-            text_1.Text = Testing.pickles;
+            //Testing.TestCall();
+            //text_1.Text = Testing.pickles;
 
-            int[] test = ManagedObject.GetPlayerDistro();
-            string[] testString = { "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Masters", "Challenger", "Total" };
-            double perc = 0D;
+            //int[] test = ManagedObject.GetPlayerDistro();
+            //string[] testString = { "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Masters", "Challenger", "Total" };
+            //double perc = 0D;
 
-            for (int i = 0; i < test.Length; ++i)
-            {
-                perc = (double)test[i] / (double)test[7] * 100;
-                text_2.Text += String.Format("{0,-10} {1,-15} {2, -10:00.00}\n", testString[i], test[i], perc);
-            }
+            //for (int i = 0; i < test.Length; ++i)
+            //{
+            //    perc = (double)test[i] / (double)test[7] * 100;
+            //    text_2.Text += String.Format("{0,-10} {1,-15} {2, -10:00.00}\n", testString[i], test[i], perc);
+            //}
 
 
             
@@ -60,28 +60,67 @@ namespace Matchmaking_UI
         {
             text_3_Copy.Text = newCounter.Count.ToString();
         }
-    }
 
-    public class Testing
-    {
-        public static string pickles;
-
-        [DllImport("Matchmaking Player Generator.dll")]
-        public static extern void CallbackTest(IntPtr ptr);
-
-        public delegate void TestDelegate();
-
-        public static void WriteTest()
+        async private void Button_MakePlayers_Click(object sender, RoutedEventArgs e)
         {
-            pickles = "Callback success";
+            var button = sender as Button;
+
+            button.IsEnabled = false;
+            button.Content = "Calculating";
+
+            int input = Convert.ToInt32(text_Input.Text);
+
+            var result = await Task.Run(() => MakePlayers(input));
+
+            button.IsEnabled = true;
+            button.Content = "Make Players";
         }
 
-        static TestDelegate ff;
-
-        public static void TestCall()
+        private int MakePlayers(int input)
         {
-            ff = new TestDelegate(WriteTest);
-            CallbackTest(Marshal.GetFunctionPointerForDelegate(ff));
+            //call make players function
+            ManagedObject.GetMakePlayer(input);
+
+            return 0;
+        }
+
+        private void Button_GetDistro_Click(object sender, RoutedEventArgs e)
+        {
+            int[] playerDistro = ManagedObject.GetPlayerDistro();
+            double perc = 0D;
+            //reset text_Output, playerDistro
+            text_Output.Text = "";
+
+
+            text_Output.Text += String.Format("{0,-15} {1,-15} {2, -10:00.00}\n", "Division:", "# of Players", "%");
+            for (int i = 0; i < playerDistro.Length; ++i)
+            {
+                perc = (double)playerDistro[i] / (double)playerDistro[34] * 100;
+                text_Output.Text += String.Format("{0,-15} {1,-15} {2, -10:00.00}\n", ManagedObject.distroStrings[i], playerDistro[i], perc);
+            }
         }
     }
+
+    //public class Testing
+    //{
+    //    public static string pickles;
+
+    //    [DllImport("Matchmaking Player Generator.dll")]
+    //    public static extern void CallbackTest(IntPtr ptr);
+
+    //    public delegate void TestDelegate();
+
+    //    public static void WriteTest()
+    //    {
+    //        pickles = "Callback success";
+    //    }
+
+    //    static TestDelegate ff;
+
+    //    public static void TestCall()
+    //    {
+    //        ff = new TestDelegate(WriteTest);
+    //        CallbackTest(Marshal.GetFunctionPointerForDelegate(ff));
+    //    }
+    //}
 }
