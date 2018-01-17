@@ -9,6 +9,9 @@
 
 
 //variables
+typedef void(*SyncCounter)(void);
+SyncCounter syncCounter;
+
 
 //class
 class Counter {
@@ -17,17 +20,21 @@ public:
 	int GetCount();
 	int GetWaitTime();
 	void SetWaitTime(int);
+	int GetUpdateTime();
+	void SetUpdateTime(int);
 
 	void StartCount();
 	void ResetCount();
+	__declspec(dllexport) int* SyncCount();
 
-	Counter(int set = 1000);
+	Counter(int set = 1000, int update = 10);
 	~Counter();
 private:
 	void IncCounter();
 
 	int count;
 	int waitTime;
+	int updateTime;
 	std::thread counterThread;
 };
 
@@ -37,13 +44,19 @@ int Counter::GetWaitTime() { return waitTime; }
 
 void Counter::SetWaitTime(int set) { waitTime = set; }
 
+int Counter::GetUpdateTime() { return updateTime; }
+
+void Counter::SetUpdateTime(int update) { updateTime = update; }
+
 void Counter::StartCount() { counterThread = std::thread([this] { this->IncCounter(); }); }
 
 void Counter::ResetCount() { count = 0; }
 
-Counter::Counter(int set /*= 1000*/) {
+Counter::Counter(int wait /*= 1000*/, int update /*= 10*/) {
 	count = 0;
-	waitTime = set;
+
+	updateTime = update;
+	waitTime = wait;
 }
 
 Counter::~Counter() {
@@ -58,23 +71,15 @@ void Counter::IncCounter() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(waitTime));
 
 		++count;
+
+		if (count % updateTime == 0) {
+			//call synccounter
+		}
 	}
 }
 
-void counter() {
+extern "C" __declspec(dllexport) int* Counter::SyncCount() {
+	int countWait[2] = { count, waitTime };
 
-	int count = 0;
-
-	while (count < 10) {
-		std::cout << count << std::endl;
-
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		++count;
-	}
-
+	return countWait;
 }
-
-
-//extern "C" __declspec(dllexport) int* SyncCount() {
-//	
-//}

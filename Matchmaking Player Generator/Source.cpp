@@ -12,19 +12,24 @@
 //callbacks, used to tell c# to update a variable
 typedef void(*foo)(void);
 foo test;
-typedef void(*updatePlayers)(void);
-updatePlayers UpdatePlayers;
+typedef void(*UpdatePlayers)(void);
+UpdatePlayers updatePlayers;
 
 //order is always bronze 5, bronze 4, bronze 3, bronze 2, bronze 1 (repeat for silver, gold, plat, diamond) masters, challenger    total size: 27
 int numberOfPlayersBracket[NUMBER_OF_BRACKETS + 8]; //+ 8 for: //bronzeTotal, silverTotal, goldTotal, platTotal, diamondTotal, masters(repeat), chall(repeat), total
 std::vector<std::shared_ptr<Player>> playerVec;
 
 
+//function at the start that is called by C# and passes all the callback functions
+extern "C" __declspec(dllexport) void AssignCallbacks(UpdatePlayers updatePlayersCall, SyncCounter syncCounterCall) {
+	updatePlayers = updatePlayersCall;
+	syncCounter = syncCounterCall;
 
-
+	return;
+}
 
 extern "C" __declspec(dllexport) void MakePlayer(int addPlayer) {
-
+ 
 	//generate addPlayer players, output the % of each in each division
 	for (int i = 0; i < addPlayer; ++i) {
 		std::shared_ptr<Player> newPlayer = std::make_shared<Player>();
@@ -142,6 +147,8 @@ extern "C" __declspec(dllexport) void MakePlayer(int addPlayer) {
 		++numberOfPlayersBracket[34]; //total
 	}
 
+	updatePlayers();
+
 	return;
 }
 
@@ -254,7 +261,6 @@ extern "C" __declspec(dllexport) int* GetDistro() {
 //	//system("pause");
 //	return 0;
 //}  
-
 
 
 //OLD STUFF FROM TESTING PINVOKE/CALLBACKS

@@ -10,6 +10,7 @@ namespace Matchmaking_UI
 {
     public class Counter : INotifyPropertyChanged
     {
+        //INotifyProperty events
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -25,8 +26,8 @@ namespace Matchmaking_UI
             return true;
         }
 
-
-        private int count;
+        //fields and respective properties
+        protected int count;
         public int Count
         {
             get { return count; }
@@ -40,11 +41,23 @@ namespace Matchmaking_UI
         private System.Timers.Timer threadCounter;
         private delegate void IncDelegate();
 
+        //methods
         private void IncCount(Object sender, System.Timers.ElapsedEventArgs e)
         {
             ++Count;
         }
 
+        public void SyncCount()
+        {
+            int[] countWait = new int[2];
+
+            countWait = ManagedObject.SyncCounter();
+
+            count = countWait[0];
+            waitTime = countWait[1];
+        }
+
+        //constructor
         public Counter()
         {
             count = 0;
