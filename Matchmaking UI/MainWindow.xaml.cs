@@ -32,18 +32,18 @@ namespace Matchmaking_UI
         public delegate void GetPlayerDistro();
         GetPlayerDistro getPlayers;
         public delegate void SynchronizeCounters();
-        SynchronizeCounters syncCounter;
+        SynchronizeCounters syncCounters;
 
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
             //pass the callback functions
             getPlayers = new GetPlayerDistro(GetDistro);
-            syncCounter = new SynchronizeCounters(newCounter.SyncCount);
+            syncCounters = new SynchronizeCounters(newCounter.SyncCount);
 
             
 
-            ManagedWrapper.AssignCallbacks(getPlayers, syncCounter);
+            ManagedWrapper.AssignCallbacks(getPlayers, syncCounters);
 
             Binding counterBinding = new Binding("Count");
             counterBinding.Source = newCounter;
@@ -51,12 +51,12 @@ namespace Matchmaking_UI
             counterBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             text_3.SetBinding(TextBox.TextProperty, counterBinding);
 
-            
+            ManagedWrapper.CreateCounter(1000, 10);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            text_3_Copy.Text = newCounter.Count.ToString();
+            text_3_Copy.Text = ManagedWrapper.GetCount().ToString();
         }
 
         async private void Button_MakePlayers_Click(object sender, RoutedEventArgs e)

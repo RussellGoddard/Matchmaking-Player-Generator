@@ -9,9 +9,9 @@
 
 
 //variables
-typedef void(*SyncCounter)(void);
+typedef int*(*SyncCounter)(void);
 SyncCounter syncCounter;
-
+int countWait[2];
 
 //class
 class Counter {
@@ -25,7 +25,7 @@ public:
 
 	void StartCount();
 	void ResetCount();
-	__declspec(dllexport) int* SyncCount();
+	int* SyncCount();
 
 	Counter(int set = 1000, int update = 10);
 	~Counter();
@@ -37,6 +37,10 @@ private:
 	int updateTime;
 	std::thread counterThread;
 };
+
+//this has to go after the counter declaration
+Counter *cppCount;
+
 
 int Counter::GetCount() { return count; }
 
@@ -73,13 +77,27 @@ void Counter::IncCounter() {
 		++count;
 
 		if (count % updateTime == 0) {
-			//call synccounter
+			syncCounter();
 		}
 	}
 }
 
-extern "C" __declspec(dllexport) int* Counter::SyncCount() {
-	int countWait[2] = { count, waitTime };
+int* Counter::SyncCount() {
+	countWait[0] = count;
+	countWait[1] = waitTime;
 
 	return countWait;
+}
+
+extern "C" __declspec(dllexport) void CreateCounter(int set, int update) {
+	cppCount = new Counter(set, update);
+	cppCount->StartCount();
+}
+
+extern "C" __declspec(dllexport) int GetCount() {
+	return cppCount->GetCount();
+}
+
+extern "C" __declspec(dllexport) int* cpp_SyncCounter() {
+	return cppCount->SyncCount();
 }

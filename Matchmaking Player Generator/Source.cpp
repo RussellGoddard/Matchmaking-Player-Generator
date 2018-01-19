@@ -15,13 +15,14 @@ foo test;
 typedef void(*UpdatePlayers)(void);
 UpdatePlayers updatePlayers;
 
+
 //order is always bronze 5, bronze 4, bronze 3, bronze 2, bronze 1 (repeat for silver, gold, plat, diamond) masters, challenger    total size: 27
 int numberOfPlayersBracket[NUMBER_OF_BRACKETS + 8]; //+ 8 for: //bronzeTotal, silverTotal, goldTotal, platTotal, diamondTotal, masters(repeat), chall(repeat), total
 std::vector<std::shared_ptr<Player>> playerVec;
 
 
 //function at the start that is called by C# and passes all the callback functions
-extern "C" __declspec(dllexport) void AssignCallbacks(UpdatePlayers updatePlayersCall, SyncCounter syncCounterCall) {
+extern "C" __declspec(dllexport) void AssignCallbacks(UpdatePlayers updatePlayersCall,  SyncCounter syncCounterCall) {
 	updatePlayers = updatePlayersCall;
 	syncCounter = syncCounterCall;
 
@@ -148,7 +149,6 @@ extern "C" __declspec(dllexport) void MakePlayer(int addPlayer) {
 	}
 
 	updatePlayers();
-
 	return;
 }
 

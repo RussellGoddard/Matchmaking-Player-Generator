@@ -27,7 +27,13 @@ namespace Matchmaking_UI
 
         //counter
         [DllImport("Matchmaking Player Generator.dll")]
-        public static extern IntPtr SyncCounter();
+        public static extern IntPtr cpp_SyncCounter();
+
+        [DllImport("Matchmaking Player Generator.dll")]
+        public static extern void CreateCounter(int set, int update);
+
+        [DllImport("Matchmaking Player Generator.dll")]
+        public static extern int GetCount();
     }
 
     public static class ManagedObject
@@ -49,9 +55,9 @@ namespace Matchmaking_UI
         }
 
         //counter
-        public static int[] SyncCounter()
+        public static int[] SyncCount()
         {
-            IntPtr ptr = ManagedWrapper.SyncCounter();
+            IntPtr ptr = ManagedWrapper.cpp_SyncCounter();
             int[] result = new int[2];
             Marshal.Copy(ptr, result, 0, 2);
 
