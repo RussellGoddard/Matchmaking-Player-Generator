@@ -11,11 +11,11 @@
 
 //callbacks, used to tell c# to update a variable
 typedef void(*UpdatePlayers)(void);
-UpdatePlayers updatePlayers;
+UpdatePlayers cb_updatePlayers;
 
 //found in Counter.h
 //typedef int*(*SyncCounter)(void);
-//SyncCounter syncCounter;
+//SyncCounter cb_syncCounter;
 
 
 //order is always bronze 5, bronze 4, bronze 3, bronze 2, bronze 1 (repeat for silver, gold, plat, diamond) masters, challenger    total size: 27
@@ -25,8 +25,8 @@ std::vector<std::shared_ptr<Player>> playerVec;
 
 //function at the start that is called by C# and passes all the callback functions
 extern "C" __declspec(dllexport) void cpp_AssignCallbacks(UpdatePlayers updatePlayersCall,  SyncCounter syncCounterCall) {
-	updatePlayers = updatePlayersCall;
-	syncCounter = syncCounterCall;
+	cb_updatePlayers = updatePlayersCall;
+	cb_syncCounter = syncCounterCall;
 
 	return;
 }
@@ -151,7 +151,7 @@ extern "C" __declspec(dllexport) void cpp_MakePlayer(int addPlayer) {
 		++numberOfPlayersBracket[34]; //total
 	}
 
-	updatePlayers();
+	cb_updatePlayers();
 	return;
 }
 

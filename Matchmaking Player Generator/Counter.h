@@ -10,7 +10,7 @@
 
 //variables
 typedef int*(*SyncCounter)(void);
-SyncCounter syncCounter;
+SyncCounter cb_syncCounter;
 int countWait[2];
 
 //class
@@ -76,7 +76,7 @@ void Counter::IncCounter() {
 		++count;
 
 		if (count % updateTime == 0) {
-			syncCounter();
+			cb_syncCounter();
 		}
 	}
 }
