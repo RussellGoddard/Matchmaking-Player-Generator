@@ -113,7 +113,7 @@
   <ItemGroup>
     <ClCompile Include="DataForUi.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="VariablesAndCommands.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Counter.h" />

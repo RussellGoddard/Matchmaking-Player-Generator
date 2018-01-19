@@ -43,7 +43,7 @@ namespace Matchmaking_UI
 
             
 
-            ManagedWrapper.AssignCallbacks(getPlayers, syncCounters);
+            ManagedObject.cw_AssignCallbacks(getPlayers, syncCounters);
 
             Binding counterBinding = new Binding("Count");
             counterBinding.Source = newCounter;
@@ -51,12 +51,12 @@ namespace Matchmaking_UI
             counterBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             text_3.SetBinding(TextBox.TextProperty, counterBinding);
 
-            ManagedWrapper.CreateCounter(1000, 10);
+            ManagedObject.cw_CreateCounter(1000, 10);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            text_3_Copy.Text = ManagedWrapper.GetCount().ToString();
+            text_3_Copy.Text = ManagedObject.cw_GetCount().ToString();
         }
 
         async private void Button_MakePlayers_Click(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace Matchmaking_UI
 
         private int MakePlayers(int input)
         {
-            var makePlayers = new System.Threading.Thread(()=>ManagedObject.GetMakePlayer(input));
+            var makePlayers = new System.Threading.Thread(()=>ManagedObject.cw_GetMakePlayer(input));
             makePlayers.Start();
 
             makePlayers.Join(); 
@@ -92,7 +92,7 @@ namespace Matchmaking_UI
 
         private void GetDistro()
         {
-            int[] playerDistro = ManagedObject.GetPlayerDistro();
+            int[] playerDistro = ManagedObject.cw_GetPlayerDistro();
             double perc = 0D;
             this.Dispatcher.Invoke(() => 
             {

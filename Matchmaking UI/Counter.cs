@@ -51,7 +51,7 @@ namespace Matchmaking_UI
         {
             int[] countWait = new int[2];
 
-            countWait = ManagedObject.SyncCount();
+            countWait = ManagedObject.cw_SyncCount();
 
             count = countWait[0];
             waitTime = countWait[1];

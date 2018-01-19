@@ -10,10 +10,12 @@
 //variables that can't go out of scope, relevant ones are grouped together
 
 //callbacks, used to tell c# to update a variable
-typedef void(*foo)(void);
-foo test;
 typedef void(*UpdatePlayers)(void);
 UpdatePlayers updatePlayers;
+
+//found in Counter.h
+//typedef int*(*SyncCounter)(void);
+//SyncCounter syncCounter;
 
 
 //order is always bronze 5, bronze 4, bronze 3, bronze 2, bronze 1 (repeat for silver, gold, plat, diamond) masters, challenger    total size: 27
@@ -22,14 +24,15 @@ std::vector<std::shared_ptr<Player>> playerVec;
 
 
 //function at the start that is called by C# and passes all the callback functions
-extern "C" __declspec(dllexport) void AssignCallbacks(UpdatePlayers updatePlayersCall,  SyncCounter syncCounterCall) {
+extern "C" __declspec(dllexport) void cpp_AssignCallbacks(UpdatePlayers updatePlayersCall,  SyncCounter syncCounterCall) {
 	updatePlayers = updatePlayersCall;
 	syncCounter = syncCounterCall;
 
 	return;
 }
 
-extern "C" __declspec(dllexport) void MakePlayer(int addPlayer) {
+//player making related functions
+extern "C" __declspec(dllexport) void cpp_MakePlayer(int addPlayer) {
  
 	//generate addPlayer players, output the % of each in each division
 	for (int i = 0; i < addPlayer; ++i) {
@@ -152,7 +155,7 @@ extern "C" __declspec(dllexport) void MakePlayer(int addPlayer) {
 	return;
 }
 
-extern "C" __declspec(dllexport) int* GetDistro() {
+extern "C" __declspec(dllexport) int* cpp_GetDistro() {
 
 	//the trailing comment is the index number
 	//int bronze5 = 0; //0
@@ -194,102 +197,17 @@ extern "C" __declspec(dllexport) int* GetDistro() {
 	return numberOfPlayersBracket;
 }
 
-//old test function
-//int run() {
-//	//simply a test program for generating players
-//	//shared_ptr is used because eventually this pointer will be in 3 different places (I believe), the list of players, the players queued sorted by when they queued, and the players in queue sorted by mmr
-//
-//	int sum = 0;
-//	const int PLAYER_BASE = 1000000; //player base size, change this value to change how many players are created
-//
-//	int bronze = 0;
-//	int silver = 0;
-//	int gold = 0;
-//	int plat = 0;
-//	int diamond = 0;
-//	int masters = 0;
-//	int challenger = 0;
-//
-//	//generate PLAYER_BASE players, output the % of each in each division
-//	for (int i = 0; i < PLAYER_BASE; ++i) {
-//		std::shared_ptr<Player> newPlayer = std::make_shared<Player>();
-//		playerVec.push_back(newPlayer);
-//	}
-//
-//	////count each person in each bracket
-//	//for (auto obj : playerVec) {
-//	//	//if else if statements because we only care about bronze/silver/gold/plat etc not each division inside
-//	//	if (obj->GetMmr() < 600) { //bronze
-//	//		++numberOfPlayersDivision.at(0).second;
-//	//	}
-//	//	else if (obj->GetMmr() < 1100) { //silver
-//	//		++numberOfPlayersDivision.at(1).second;
-//	//	}
-//	//	else if (obj->GetMmr() < 1500) { //gold
-//	//		++numberOfPlayersDivision.at(2).second;
-//	//	}
-//	//	else if (obj->GetMmr() < 2000) { //plat
-//	//		++numberOfPlayersDivision.at(3).second;
-//	//	}
-//	//	else if (obj->GetMmr() < 2500) { //diamond
-//	//		++numberOfPlayersDivision.at(4).second;
-//	//	}
-//	//	else if (obj->GetMmr() < 2800) { //masters
-//	//		++numberOfPlayersDivision.at(5).second;
-//	//	}
-//	//	else if (obj->GetMmr() < 3000) { //challenger
-//	//		++numberOfPlayersDivision.at(6).second;
-//	//	}
-//	//}
-//
-//
-//	//for (auto i : numberOfPlayersDivision) {
-//	//	std::cout << std::setw(13) << std::setfill(' ') << std::left << i.first + ": " << 
-//	//		std::right << std::to_string(i.second) << ' ' + std::to_string((i.second / static_cast<double>(PLAYER_BASE)) * 100) << std::endl;
-//	//	sum += i.second;
-//	//}
-//
-//	//std::cout << std::endl << "Sum of Players: " << std::to_string(sum) << std::endl;
-//
-//
-//	/*std::cout << std::endl;
-//
-//	std::thread threadCounter(counter);
-//
-//	threadCounter.join();*/
-//
-//	//system("pause");
-//	return 0;
-//}  
 
+//counter related functions
+extern "C" __declspec(dllexport) void cpp_CreateCounter(int set, int update) {
+	cppCount = new Counter(set, update);
+	cppCount->StartCount();
+}
 
-//OLD STUFF FROM TESTING PINVOKE/CALLBACKS
+extern "C" __declspec(dllexport) int cpp_GetCount() {
+	return cppCount->GetCount();
+}
 
-//extern "C" __declspec(dllexport) void CallbackAssign(foo pickle, updatePlayers playersUpdate) {
-//	test = pickle;
-//
-//	test();
-//
-//	return;
-//}
-//
-//extern "C" __declspec(dllexport) int* PlayerDistro() {
-//
-//	int* test = new int[8];
-//	int sum = 0;
-//
-//	run();
-//
-//	for (int i = 0; i < 28; ++i) {
-//		test[i] = numberOfPlayersDivisionp[i];
-//		sum += numberOfPlayersDivision.at(i).second;
-//	}
-//
-//	test[7] = sum;
-//
-//	return test;
-//}
-//
-//extern "C" __declspec(dllexport) void DeleteArray(int* pArray) {
-//	delete[] pArray;
-//}
+extern "C" __declspec(dllexport) int* cpp_SyncCounter() {
+	return cppCount->SyncCount();
+}

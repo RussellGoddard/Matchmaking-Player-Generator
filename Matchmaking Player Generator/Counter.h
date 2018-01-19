@@ -41,7 +41,6 @@ private:
 //this has to go after the counter declaration
 Counter *cppCount;
 
-
 int Counter::GetCount() { return count; }
 
 int Counter::GetWaitTime() { return waitTime; }
@@ -87,17 +86,4 @@ int* Counter::SyncCount() {
 	countWait[1] = waitTime;
 
 	return countWait;
-}
-
-extern "C" __declspec(dllexport) void CreateCounter(int set, int update) {
-	cppCount = new Counter(set, update);
-	cppCount->StartCount();
-}
-
-extern "C" __declspec(dllexport) int GetCount() {
-	return cppCount->GetCount();
-}
-
-extern "C" __declspec(dllexport) int* cpp_SyncCounter() {
-	return cppCount->SyncCount();
 }
