@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 
+using LiveCharts;
+using LiveCharts.Wpf;
+
 namespace Matchmaking_UI
 {
     
@@ -41,8 +44,6 @@ namespace Matchmaking_UI
             getPlayers = new GetPlayerDistro(GetDistro);
             syncCounters = new SynchronizeCounters(newCounter.SyncCount);
 
-            
-
             ManagedObject.cw_AssignCallbacks(getPlayers, syncCounters);
 
             Binding counterBinding = new Binding("Count");
@@ -65,11 +66,18 @@ namespace Matchmaking_UI
 
             button.IsEnabled = false;
             button.Content = "Calculating";
-
-            int input = Convert.ToInt32(text_Input.Text);
-
-            var result = await Task.Run(() => MakePlayers(input));
-            //ManagedObject.GetMakePlayer(input);
+    
+            if (int.TryParse(text_Input.Text, out int input))
+            {
+                if (input != 0)
+                {
+                    var result = await Task.Run(() => MakePlayers(input));
+                }
+            }
+            else
+            {
+                text_Error_Output.Text = "Input must be numeric"; //TO DO this should be a variable
+            }
 
             button.IsEnabled = true;
             button.Content = "Make Players";
@@ -85,27 +93,27 @@ namespace Matchmaking_UI
             return 0;
         }
 
-        private void Button_GetDistro_Click(object sender, RoutedEventArgs e)
-        {
-            GetDistro();
-        }
-
         private void GetDistro()
         {
             int[] playerDistro = ManagedObject.cw_GetPlayerDistro();
             double perc = 0D;
             this.Dispatcher.Invoke(() => 
             {
-                //reset text_Output, playerDistro
-                text_Output.Text = "";
+                //reset text_PlayerDistro_Text, playerDistro
+                text_PlayerDistro_Text.Text = "";
 
-
-                text_Output.Text += String.Format("{0,-15} {1,-15} {2, -10:00.00}\n", "Division:", "# of Players", "%");
-                for (int i = 0; i < playerDistro.Length; ++i)
+                text_PlayerDistro_Text.Text += String.Format("{0,-14} {1,-13} {2, -10:00.00}\n", "Division:", "# of Players", "%");
+                text_PlayerDistro_Text.Text += Environment.NewLine;
+                for (int i = 0; i < playerDistro.Length - 1; ++i)
                 {
+                    if (i == 26)
+                    {
+                        text_PlayerDistro_Text.Text += Environment.NewLine;
+                    }
                     perc = (double)playerDistro[i] / (double)playerDistro[34] * 100;
-                    text_Output.Text += String.Format("{0,-15} {1,-15} {2, -10:00.00}\n", ManagedObject.distroStrings[i], playerDistro[i], perc);
+                    text_PlayerDistro_Text.Text += String.Format("{0,-14} {1,-13} {2, -10:00.00}\n", ManagedObject.distroStrings[i], playerDistro[i], perc);
                 }
+                text_PlayerTotal_Output.Text = playerDistro.Last().ToString();
             });
         }
     }

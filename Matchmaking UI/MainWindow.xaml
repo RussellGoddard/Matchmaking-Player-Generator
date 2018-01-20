@@ -4,16 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matchmaking_UI"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="OnLoad">
-    <Grid>
-        <TextBox x:Name="text_Input" HorizontalAlignment="Left" Height="23" Margin="19,26,0,0" TextWrapping="Wrap" Text="Input" VerticalAlignment="Top" Width="188" FontFamily="Lucida Sans Typewriter"/>
-        <TextBox x:Name="text_Output" HorizontalAlignment="Left" Height="175" Margin="212,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Sans Typewriter"/>
-        <TextBox x:Name="text_3" HorizontalAlignment="Left" Height="23" Margin="19,95,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="text_3_Copy" HorizontalAlignment="Left" Height="23" Margin="19,143,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Get CPP Count" HorizontalAlignment="Left" Margin="19,179,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
-        <Button x:Name="Button_MakePlayers" Content="Make Players" HorizontalAlignment="Left" Margin="19,62,0,0" VerticalAlignment="Top" Width="122" Click="Button_MakePlayers_Click"/>
-        <Button x:Name="Button_GetDistro" Content="Get Distribution" HorizontalAlignment="Left" Margin="212,234,0,0" VerticalAlignment="Top" Width="99" Click="Button_GetDistro_Click"/>
-
+        Title="Main Window" Height="700" Width="550" ResizeMode="NoResize" Loaded="OnLoad">
+    <Grid Margin="0,0,0,0" ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="270"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="text_Input" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="23" Margin="10,14,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="122" FontFamily="Lucida Sans Typewriter"/>
+        <Button x:Name="Button_MakePlayers" Grid.Column="0" Grid.Row="1" Content="Make Players" HorizontalAlignment="Left" Margin="9,41.667,0,0" VerticalAlignment="Top" Width="122" Click="Button_MakePlayers_Click" Height="22" />
+        <TextBox x:Name="text_3" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="23" Margin="10,95,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="text_3_Copy" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="23" Margin="10,143,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120" />
+        <Button Content="Get CPP Count" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="22" />
+        <TextBox x:Name="text_PlayerDistro_Text" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Height="545" Width="275" Margin="9.667,15,0,-271.667" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Lucida Sans Typewriter" IsReadOnly="True" />
+        <TextBlock x:Name="text_PlayerTotal_Label" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="9.667,570,0,-323.667" Grid.Row="1" TextWrapping="Wrap" Text="Total Number of Players:" VerticalAlignment="Top" Width="150"/>
+        <TextBlock x:Name="text_PlayerTotal_Output" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="149.667,570,0,-323.667" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="121"/>
+        <TextBlock x:Name="text_Error_Output" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
