@@ -5,35 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Matchmaking_UI
 {
     public class PlayerDistribution : INotifyPropertyChanged
     {
-
-        //INotifyProperty events
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        static PlayerDistribution _instance;
-        public static object _lockThis = new object();
-
-        private PlayerDistribution() { }
-
-        public static PlayerDistribution GetInstance()
-        {
-            lock (_lockThis)
-            {
-                if (_instance == null) _instance = new PlayerDistribution(); 
-            }
-
-            return _instance;
-        }
-
         private int[] playerDistroInt = new int[35];
         public int[] PlayerDistroInt { get { return playerDistroInt; } }
 
@@ -61,6 +38,30 @@ namespace Matchmaking_UI
 
             OnPropertyChanged("PlayerDistroString");
             OnPropertyChanged("PlayerTotal");
+        }
+
+        //INotifyProperty events
+        public event PropertyChangedEventHandler PropertyChanged;
+        void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //singleton implementation
+        static PlayerDistribution _instance;
+        public static object _lockThis = new object();
+
+        private PlayerDistribution() { }
+
+        public static PlayerDistribution GetInstance()
+        {
+            lock (_lockThis)
+            {
+                if (_instance == null) _instance = new PlayerDistribution();
+            }
+
+            return _instance;
         }
     }
 }

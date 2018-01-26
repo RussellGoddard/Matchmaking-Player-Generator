@@ -17,8 +17,6 @@ using System.Runtime.InteropServices;
 using LiveCharts;
 using LiveCharts.Wpf;
 
-using System.ComponentModel;
-
 namespace Matchmaking_UI
 {
 
@@ -117,13 +115,7 @@ namespace Matchmaking_UI
 
     public class ViewModel
     {
-        public PlayerDistribution View_PlayerDistribution;
-
-
-
-
-
-
+        public PlayerDistribution View_PlayerDistribution { get; set; }
 
         //constructor
         public ViewModel()
