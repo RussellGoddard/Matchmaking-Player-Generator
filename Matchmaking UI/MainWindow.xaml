@@ -4,16 +4,68 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matchmaking_UI"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="OnLoad">
-    <Grid>
-        <TextBox x:Name="text_Input" HorizontalAlignment="Left" Height="23" Margin="19,26,0,0" TextWrapping="Wrap" Text="Input" VerticalAlignment="Top" Width="188" FontFamily="Lucida Sans Typewriter"/>
-        <TextBox x:Name="text_Output" HorizontalAlignment="Left" Height="175" Margin="212,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Sans Typewriter"/>
-        <TextBox x:Name="text_3" HorizontalAlignment="Left" Height="23" Margin="19,95,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="text_3_Copy" HorizontalAlignment="Left" Height="23" Margin="19,143,0,0" TextWrapping="Wrap" Text="Counter" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Get CPP Count" HorizontalAlignment="Left" Margin="19,179,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
-        <Button x:Name="Button_MakePlayers" Content="Make Players" HorizontalAlignment="Left" Margin="19,62,0,0" VerticalAlignment="Top" Width="122" Click="Button_MakePlayers_Click"/>
-        <Button x:Name="Button_GetDistro" Content="Get Distribution" HorizontalAlignment="Left" Margin="212,234,0,0" VerticalAlignment="Top" Width="99" Click="Button_GetDistro_Click"/>
-
+        Title="Main Window" Height="700" Width="1000" ResizeMode="NoResize" Loaded="OnLoad">
+    <Window.Resources>
+        <local:ViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="0,0,0,0" ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="270"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="text_Input_MakePlayers" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="23" Margin="10,14,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="122" FontFamily="Lucida Sans Typewriter"/>
+        <Button x:Name="button_Input_MakePlayers" Grid.Column="0" Grid.Row="1" Content="Make Players" HorizontalAlignment="Left" Margin="9,41.667,0,0" VerticalAlignment="Top" Width="122" Click="Button_MakePlayers_Click" Height="22" />
+        <TextBox x:Name="text_Output_PlayerDistro" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Height="570" Width="275" Margin="10,14.667,0,-360.333" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Lucida Sans Typewriter" IsReadOnly="True" >
+            <TextBox.Text>
+                <MultiBinding StringFormat="{}{0}&#x0a;{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}&#x0a;{28}{29}{30}{31}{32}{33}{34}&#x0a;{35}">
+                    <Binding Path="View_PlayerDistribution.PlayerDistroStringHeader" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[0]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[1]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[2]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[3]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[4]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[5]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[6]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[7]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[8]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[9]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[10]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[11]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[12]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[13]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[14]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[15]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[16]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[17]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[18]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[19]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[20]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[21]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[22]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[23]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[24]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[25]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[26]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[27]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[28]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[29]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[30]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[31]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[32]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[33]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PlayerDistribution.PlayerDistroString[34]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                </MultiBinding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBlock x:Name="text_Output_Error" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="text_Output_Counter" HorizontalAlignment="Left" Margin="9,615.667,0,-360.333" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
     </Grid>
 </Window>

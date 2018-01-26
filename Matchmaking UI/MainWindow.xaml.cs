@@ -14,9 +14,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 
+using LiveCharts;
+using LiveCharts.Wpf;
+
 namespace Matchmaking_UI
 {
-    
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -27,6 +30,7 @@ namespace Matchmaking_UI
             InitializeComponent();
         }
 
+        #region OnLoad
         //things that need to be declared and can't go out of scope (if anything isn't initialized it should be in the OnLoad event
         Counter newCounter = new Counter();
         public delegate void GetPlayerDistro();
@@ -38,27 +42,39 @@ namespace Matchmaking_UI
         private void OnLoad(object sender, RoutedEventArgs e)
         {
             //pass the callback functions
-            getPlayers = new GetPlayerDistro(GetDistro);
-            syncCounters = new SynchronizeCounters(newCounter.SyncCount);
+            var newPlayerDistro = PlayerDistribution.GetInstance();
 
-            
+            getPlayers = new GetPlayerDistro(newPlayerDistro.UpdateDistro);
+            syncCounters = new SynchronizeCounters(newCounter.SyncCount);
 
             ManagedObject.cw_AssignCallbacks(getPlayers, syncCounters);
 
+            //Binding test = new Binding("test");
+            //test.Source = newPlayerDistro.PlayerDistro;
+            //test.Mode = BindingMode.OneWay;
+            //test.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            //text_Output_PlayerDistro.SetBinding(TextBox.TextProperty, test);
+
+            //Binding pickle = new Binding("pickle");
+            //pickle.Source = newPlayerDistro.PlayerDistro;
+            //pickle.Mode = BindingMode.OneWay;
+            //pickle.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            //test_pickle.DataContext = PlayerDistribution.GetDistro();
+            
+
+            //misc 
             Binding counterBinding = new Binding("Count");
             counterBinding.Source = newCounter;
             counterBinding.Mode = BindingMode.OneWay;
             counterBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            text_3.SetBinding(TextBox.TextProperty, counterBinding);
+            text_Output_Counter.SetBinding(TextBlock.TextProperty, counterBinding);
 
+            //create c++ objects
             ManagedObject.cw_CreateCounter(1000, 10);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            text_3_Copy.Text = ManagedObject.cw_GetCount().ToString();
-        }
-
+        #endregion
+        #region Column 0
         async private void Button_MakePlayers_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -66,10 +82,17 @@ namespace Matchmaking_UI
             button.IsEnabled = false;
             button.Content = "Calculating";
 
-            int input = Convert.ToInt32(text_Input.Text);
-
-            var result = await Task.Run(() => MakePlayers(input));
-            //ManagedObject.GetMakePlayer(input);
+            if (int.TryParse(text_Input_MakePlayers.Text, out int input))
+            {
+                if (input > 0)
+                {
+                    var result = await Task.Run(() => MakePlayers(input));
+                }
+            }
+            else
+            {
+                text_Output_Error.Text = "Input must be numeric"; //TO DO this should be a variable
+            }
 
             button.IsEnabled = true;
             button.Content = "Make Players";
@@ -77,59 +100,27 @@ namespace Matchmaking_UI
 
         private int MakePlayers(int input)
         {
-            var makePlayers = new System.Threading.Thread(()=>ManagedObject.cw_GetMakePlayer(input));
+            var makePlayers = new System.Threading.Thread(() => ManagedObject.cw_GetMakePlayer(input));
             makePlayers.Start();
 
-            makePlayers.Join(); 
-            
+            makePlayers.Join();
+
             return 0;
         }
-
-        private void Button_GetDistro_Click(object sender, RoutedEventArgs e)
-        {
-            GetDistro();
-        }
-
-        private void GetDistro()
-        {
-            int[] playerDistro = ManagedObject.cw_GetPlayerDistro();
-            double perc = 0D;
-            this.Dispatcher.Invoke(() => 
-            {
-                //reset text_Output, playerDistro
-                text_Output.Text = "";
-
-
-                text_Output.Text += String.Format("{0,-15} {1,-15} {2, -10:00.00}\n", "Division:", "# of Players", "%");
-                for (int i = 0; i < playerDistro.Length; ++i)
-                {
-                    perc = (double)playerDistro[i] / (double)playerDistro[34] * 100;
-                    text_Output.Text += String.Format("{0,-15} {1,-15} {2, -10:00.00}\n", ManagedObject.distroStrings[i], playerDistro[i], perc);
-                }
-            });
-        }
+        #endregion
+        #region Column 1
+        
+        #endregion
     }
 
-    //public class Testing
-    //{
-    //    public static string pickles;
+    public class ViewModel
+    {
+        public PlayerDistribution View_PlayerDistribution { get; set; }
 
-    //    [DllImport("Matchmaking Player Generator.dll")]
-    //    public static extern void CallbackTest(IntPtr ptr);
-
-    //    public delegate void TestDelegate();
-
-    //    public static void WriteTest()
-    //    {
-    //        pickles = "Callback success";
-    //    }
-
-    //    static TestDelegate ff;
-
-    //    public static void TestCall()
-    //    {
-    //        ff = new TestDelegate(WriteTest);
-    //        CallbackTest(Marshal.GetFunctionPointerForDelegate(ff));
-    //    }
-    //}
+        //constructor
+        public ViewModel()
+        {
+            View_PlayerDistribution = PlayerDistribution.GetInstance();
+        }
+    }
 }
