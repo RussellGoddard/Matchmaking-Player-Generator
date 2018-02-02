@@ -65,6 +65,8 @@
                 </MultiBinding>
             </TextBox.Text>
         </TextBox>
+        <lvc:PieChart x:Name="PieChart" Series="{Binding Source={StaticResource ViewModel}, Path=View_PlayerDistribution.PlayerDistroChart_Tier}" Grid.Column="2" Grid.Row="1" Margin="10,10,10,10" LegendLocation="Bottom">
+        </lvc:PieChart>
         <TextBlock x:Name="text_Output_Error" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBlock x:Name="text_Output_Counter" HorizontalAlignment="Left" Margin="9,615.667,0,-360.333" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
     </Grid>

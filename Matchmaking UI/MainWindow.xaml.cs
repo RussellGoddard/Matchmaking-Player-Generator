@@ -117,6 +117,9 @@ namespace Matchmaking_UI
     {
         public PlayerDistribution View_PlayerDistribution { get; set; }
 
+        private ChartValues<int> test = new ChartValues<int> { 10 };
+        public ChartValues<int> Test { get { return test; } }
+
         //constructor
         public ViewModel()
         {
