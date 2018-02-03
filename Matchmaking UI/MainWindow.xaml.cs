@@ -94,6 +94,10 @@ namespace Matchmaking_UI
                 text_Output_Error.Text = "Input must be numeric"; //TO DO this should be a variable
             }
 
+            //this breaks my MVVM but I couldn't figure out how to properly bind Livecharts values
+            ViewModel tempModel = new ViewModel();
+            tempModel.UpdateCharts();
+
             button.IsEnabled = true;
             button.Content = "Make Players";
         }
@@ -113,17 +117,53 @@ namespace Matchmaking_UI
         #endregion
     }
 
-    public class ViewModel
+    public class ViewModel 
     {
-        public PlayerDistribution View_PlayerDistribution { get; set; }
+        public PlayerDistribution View_PD { get; set; }
 
-        private ChartValues<int> test = new ChartValues<int> { 10 };
-        public ChartValues<int> Test { get { return test; } }
+        public void UpdateCharts()
+        {
+            int index = 0; //for updating playerDistroInt
+            SeriesCollection newChartDiv = new SeriesCollection();
+            SeriesCollection newChartTier = new SeriesCollection();
+
+            //update playerDistroInt_Tier, _Div, Total
+            //update playerDistroChart_Tier, _Div
+
+            for (int i = 0; i < View_PD.Int_Div.Length; ++i)
+            {
+                ChartValues<int> newValues = new ChartValues<int> { View_PD.Int_Div[i] };
+                PieSeries newPie = new PieSeries();
+                newPie.Title = View_PD.divTierStrings[index];
+                newPie.Values = newValues;
+                newPie.DataLabels = false;
+
+                newChartDiv.Add(newPie);
+
+                ++index;
+            }
+            for (int i = 0; i < View_PD.Int_Tier.Length; ++i)
+            {
+                ChartValues<int> newValues = new ChartValues<int> { View_PD.Int_Tier[i] };
+                PieSeries newPie = new PieSeries();
+                newPie.Title = View_PD.divTierStrings[index];
+                newPie.Values = newValues;
+                newPie.DataLabels = false;
+
+                newChartTier.Add(newPie);
+
+                ++index;
+            }
+
+            View_PD.Chart_Div = newChartDiv;
+            View_PD.Chart_Tier = newChartTier;
+
+        }
 
         //constructor
         public ViewModel()
         {
-            View_PlayerDistribution = PlayerDistribution.GetInstance();
+            View_PD = PlayerDistribution.GetInstance();
         }
     }
 }

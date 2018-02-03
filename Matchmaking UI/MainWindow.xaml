@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Matchmaking_UI"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Main Window" Height="700" Width="1000" ResizeMode="NoResize" Loaded="OnLoad">
+        Title="Main Window" Height="700" Width="1500" ResizeMode="NoResize" Loaded="OnLoad">
     <Window.Resources>
         <local:ViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -26,47 +26,47 @@
         <TextBox x:Name="text_Output_PlayerDistro" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Height="570" Width="275" Margin="10,14.667,0,-360.333" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Lucida Sans Typewriter" IsReadOnly="True" >
             <TextBox.Text>
                 <MultiBinding StringFormat="{}{0}&#x0a;{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}&#x0a;{28}{29}{30}{31}{32}{33}{34}&#x0a;{35}">
-                    <Binding Path="View_PlayerDistribution.PlayerDistroStringHeader" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[0]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[1]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[2]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[3]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[4]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[5]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[6]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[7]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[8]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[9]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[10]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[11]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[12]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[13]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[14]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[15]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[16]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[17]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[18]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[19]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[20]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[21]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[22]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[23]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[24]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[25]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[26]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[27]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[28]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[29]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[30]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[31]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[32]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[33]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
-                    <Binding Path="View_PlayerDistribution.PlayerDistroString[34]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputStringHeader" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[0]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[1]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[2]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[3]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[4]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[5]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[6]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[7]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[8]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[9]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[10]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[11]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[12]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[13]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[14]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[15]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[16]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[17]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[18]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[19]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[20]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[21]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[22]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[23]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[24]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[25]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[26]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[27]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[28]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[29]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[30]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[31]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[32]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[33]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
+                    <Binding Path="View_PD.OutputString[34]" Source="{StaticResource ViewModel}" Mode="OneWay"/>
                 </MultiBinding>
             </TextBox.Text>
         </TextBox>
-        <lvc:PieChart x:Name="PieChart" Series="{Binding Source={StaticResource ViewModel}, Path=View_PlayerDistribution.PlayerDistroChart_Tier}" Grid.Column="2" Grid.Row="1" Margin="10,10,10,10" LegendLocation="Bottom">
-        </lvc:PieChart>
+        <lvc:PieChart x:Name="Pie_Tier" Series="{Binding Source={StaticResource ViewModel}, Path=View_PD.Chart_Tier}" Grid.Column="2" Grid.Row="1" Margin="10.333,9.667,10,-55.333" LegendLocation="Right" />
+        <lvc:PieChart x:Name="Pie_Div" Series="{Binding Source={StaticResource ViewModel}, Path=View_PD.Chart_Div}" Grid.Column="2" Grid.Row="1" Height="300" Margin="10.333,331.667,10,-360.333" LegendLocation="Right"/>
         <TextBlock x:Name="text_Output_Error" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBlock x:Name="text_Output_Counter" HorizontalAlignment="Left" Margin="9,615.667,0,-360.333" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
     </Grid>
