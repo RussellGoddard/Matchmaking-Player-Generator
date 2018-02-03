@@ -1,4 +1,28 @@
-﻿using System;
+﻿/* 
+The MIT License (MIT)
+
+Copyright (c) 2016 Alberto Rodriguez & LiveCharts contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -94,6 +118,10 @@ namespace Matchmaking_UI
                 text_Output_Error.Text = "Input must be numeric"; //TO DO this should be a variable
             }
 
+            //this breaks my MVVM but I couldn't figure out how to properly bind Livecharts values
+            ViewModel tempModel = new ViewModel();
+            tempModel.UpdateCharts();
+
             button.IsEnabled = true;
             button.Content = "Make Players";
         }
@@ -113,14 +141,53 @@ namespace Matchmaking_UI
         #endregion
     }
 
-    public class ViewModel
+    public class ViewModel 
     {
-        public PlayerDistribution View_PlayerDistribution { get; set; }
+        public PlayerDistribution View_PD { get; set; }
+
+        public void UpdateCharts()
+        {
+            int index = 0; //for updating playerDistroInt
+            SeriesCollection newChartDiv = new SeriesCollection();
+            SeriesCollection newChartTier = new SeriesCollection();
+
+            //update playerDistroInt_Tier, _Div, Total
+            //update playerDistroChart_Tier, _Div
+
+            for (int i = 0; i < View_PD.Int_Div.Length; ++i)
+            {
+                ChartValues<int> newValues = new ChartValues<int> { View_PD.Int_Div[i] };
+                PieSeries newPie = new PieSeries();
+                newPie.Title = View_PD.divTierStrings[index];
+                newPie.Values = newValues;
+                newPie.DataLabels = false;
+
+                newChartDiv.Add(newPie);
+
+                ++index;
+            }
+            for (int i = 0; i < View_PD.Int_Tier.Length; ++i)
+            {
+                ChartValues<int> newValues = new ChartValues<int> { View_PD.Int_Tier[i] };
+                PieSeries newPie = new PieSeries();
+                newPie.Title = View_PD.divTierStrings[index];
+                newPie.Values = newValues;
+                newPie.DataLabels = false;
+
+                newChartTier.Add(newPie);
+
+                ++index;
+            }
+
+            View_PD.Chart_Div = newChartDiv;
+            View_PD.Chart_Tier = newChartTier;
+
+        }
 
         //constructor
         public ViewModel()
         {
-            View_PlayerDistribution = PlayerDistribution.GetInstance();
+            View_PD = PlayerDistribution.GetInstance();
         }
     }
 }
