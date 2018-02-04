@@ -29,6 +29,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+using System.Windows.Data;
+
 namespace Matchmaking_UI
 {
     public class PlayerDistribution : INotifyPropertyChanged
@@ -117,7 +119,10 @@ namespace Matchmaking_UI
         static PlayerDistribution instance;
         public static object lockThis = new object();
 
-        private PlayerDistribution() {  }
+        private PlayerDistribution()
+        {
+
+        }
 
         public static PlayerDistribution GetInstance()
         {
