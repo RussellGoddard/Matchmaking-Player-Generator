@@ -137,8 +137,28 @@ namespace Matchmaking_UI
         }
         #endregion
         #region Column 1
-        
+
+        private void radio_VisualChecked(object sender, RoutedEventArgs e)
+        {
+            //hide other controls
+            text_Output_PlayerDistro.Visibility = Visibility.Collapsed;
+
+            //display pie chart
+            chart_Output_Tier.Visibility = Visibility.Visible;
+        }
+
+        private void radio_TextChecked(object sender, RoutedEventArgs e)
+        {
+            //hide other controls
+            chart_Output_Tier.Visibility = Visibility.Collapsed;
+
+            //display text
+            text_Output_PlayerDistro.Visibility = Visibility.Visible;
+
+        }
         #endregion
+
+
     }
 
     public class ViewModel 
@@ -181,7 +201,6 @@ namespace Matchmaking_UI
 
             View_PD.Chart_Div = newChartDiv;
             View_PD.Chart_Tier = newChartTier;
-
         }
 
         //constructor
