@@ -156,7 +156,6 @@ extern "C" __declspec(dllexport) void cpp_MakePlayer(int addPlayer) {
 }
 
 extern "C" __declspec(dllexport) int* cpp_GetDistro() {
-
 	//the trailing comment is the index number
 	//int bronze5 = 0; //0
 	//int bronze4 = 0; //1

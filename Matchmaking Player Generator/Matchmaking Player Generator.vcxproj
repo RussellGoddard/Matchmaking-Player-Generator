@@ -111,13 +111,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DataForUi.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="VariablesAndCommands.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Counter.h" />
-    <ClInclude Include="DataForUI.h" />
     <ClInclude Include="GetRandom.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

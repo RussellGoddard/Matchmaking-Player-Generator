@@ -18,9 +18,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataForUi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VariablesAndCommands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Counter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DataForUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
